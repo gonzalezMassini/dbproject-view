@@ -8,6 +8,7 @@ const Default=()=>{
             <a href='/UserView'>UserView</a>
             <a href='/Dashboard'>Dashboard</a>
             <a href='/Test'>Test</a>
+            <a href='/Register'>Register</a>
         </div>
     )
 }

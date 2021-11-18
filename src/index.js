@@ -9,6 +9,7 @@ import UserView from "./components/UserView.js";
 import Dashboard from "./components/Dashboard.js";
 import Test from "./components/Test/Test.js"
 import Default from "./components/Default/Default.js"
+import RegisterForm from './components/RegisterForm/RegisterForm.js'
 
 ReactDOM.render(
     <BrowserRouter>
@@ -18,6 +19,7 @@ ReactDOM.render(
             <Route exact path="/UserView" element={<UserView/>} />
             <Route exact path="/Dashboard" element={<Dashboard/>} />
             <Route exact path="/Test" element={<Test/>} />
+            <Route exact path="/Register" element={<RegisterForm/>}/>
         </Routes>
     </BrowserRouter>,
     document.getElementById('root')
