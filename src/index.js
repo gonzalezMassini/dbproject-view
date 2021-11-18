@@ -8,10 +8,12 @@ import 'semantic-ui-css/semantic.min.css'
 import UserView from "./components/UserView.js";
 import Dashboard from "./components/Dashboard.js";
 import Test from "./components/Test/Test.js"
+import Default from "./components/Default/Default.js"
 
 ReactDOM.render(
     <BrowserRouter>
         <Routes>
+            <Route exact path="/" element={<Default/>}/>
             <Route exact path="/Home" element={<HomePage/>} />
             <Route exact path="/UserView" element={<UserView/>} />
             <Route exact path="/Dashboard" element={<Dashboard/>} />
