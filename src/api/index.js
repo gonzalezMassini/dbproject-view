@@ -57,7 +57,9 @@ export const logOut = async ()=>{
 
 export const logIn=async(logInBodySend)=>{
     try {
-        const logInResponse = await axios.post("http://127.0.0.1:5000/gelatok/login",
+        const logInResponse = await axios.post(url+"/login",
+
+        // const logInResponse = await axios.post("http://127.0.0.1:5000/gelatok/login",
         logInBodySend,
         {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"}},
         // {withCredentials: true},
@@ -73,7 +75,9 @@ export const logIn=async(logInBodySend)=>{
 
 export const readUser=async(uid)=>{
     try {
-        const usersResponse = await axios.get(`http://127.0.0.1:5000/gelatok/read_user/${uid}`, 
+        const usersResponse = await axios.get(url+`/read_user/${uid}`, 
+
+        // const usersResponse = await axios.get(`http://127.0.0.1:5000/gelatok/read_user/${uid}`, 
         {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }},
         // {withCredentials: true},
         )
@@ -87,8 +91,8 @@ export const readUser=async(uid)=>{
 
 export const readUsers= async()=>{
     try {
-        // const usersResponse = await axios.get(url + "/read_users")
-        const usersResponse = await axios.get("http://127.0.0.1:5000/gelatok/read_users", 
+        const usersResponse = await axios.get(url + "/read_users",
+        // const usersResponse = await axios.get("http://127.0.0.1:5000/gelatok/read_users", 
         {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }},
         // {withCredentials: true},
 
