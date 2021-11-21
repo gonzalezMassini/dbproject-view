@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8em;
+    text-align: center;
+    font-weight: bold;
+  }
+  .form {
+    display: flex;
+    flex-direction: column;
+    width: 20em;
+  }
+  .emailInput {
+    margin-left: 2em;
+  }
+  
