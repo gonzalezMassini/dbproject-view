@@ -17,12 +17,9 @@ const LoginForm=()=>{
 
       const handleLoginSubmit=async(e)=>{
         e.preventDefault();
-        // sessionStorage.setItem('name', userInput.uname)
         const result = await logIn(logInBodySend);
-        // console.log(result)
         let uid = result.uid
         if(typeof(uid)==='number'){
-          let name = loginInput.uemail
           sessionStorage.setItem('uid',uid)
           console.log(sessionStorage.getItem('uid'))
           setSuccesLog(true)
@@ -31,17 +28,11 @@ const LoginForm=()=>{
           console.log(uid)
           setWrongCredentials(true)
         }
-    
-        // console.log('here');
-        // console.log(result.uid)
-        // console.log(result)
-        setLoginInput({uemail: "", upassword: "" });
+          setLoginInput({uemail: "", upassword: "" });
     }
     const handleLogOut= async(e)=>{
         // e.preventDefault();
         sessionStorage.removeItem('uid')
-        // const result = await logOut()
-        // console.log(result)
       }
 
 return(

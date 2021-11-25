@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {readUsers, readRooms, mostBookedRooms, mostBookedUsers, busiestHours, readMostBookedRooms, readUserMostBookedWith} from '../../api/index.js'
+import {readUsers, readRooms, mostBookedRooms, mostBookedUsers, busiestHours, readMostBookedRoom, readUserMostBookedWith} from '../../api/index.js'
 import Card from '../Card/Card.js'
 import styles from '../Test/Test.module.css'
 import NotLogged from "../NotLogged/NotLogged.js";
@@ -74,11 +74,10 @@ const Test=()=>{
     const [mostBookedRoom, setMostBookedRoom] = useState({})
 
     const getMostBookedRoom=async()=>{
-        const response = await readMostBookedRooms(1)
+        const response = await readMostBookedRoom(1)
         const mostBookedRoom = response["most used room"]
         setMostBookedRoom(mostBookedRoom)
         console.log(mostBookedRoom)
-        //console.log(mostBookedRoom)
     }
     const [userMostBookedWith, setUserMostBookedWith] = useState({})
     const getUserMostBookedWith=async()=>{
@@ -87,7 +86,6 @@ const Test=()=>{
         console.log(response)
         console.log(userMostBookedWithList[0])
         setUserMostBookedWith(userMostBookedWithList[0])
-        //console.log(userMostBookedWith)
     }
     useEffect(()=>{
         getUsers()
@@ -115,28 +113,6 @@ const Test=()=>{
                     )
                 }):<NotLogged/>}  
 
-        {/* //   {rooms.map((room)=>{
-        //             return(
-        //                 <div key={(room.rid)*33} >
-        //                     <Card 
-        //                         uid={room.rid}
-        //                         uname={room.rnumber}
-        //                         urole={room.rbuilding}
-        //                     />
-        //                 </div>
-        //             )
-        //         })} */}
-            {/* {users.map((user)=>{
-                return(
-                    <div key={(user.uid)*2} >
-                        <Card 
-                            uid={user.uid}
-                            uname={user.uname}
-                            urole={user.urole}
-                        />
-                    </div>
-                )
-            })} */}
         </div>
     )
 }
