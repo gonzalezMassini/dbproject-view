@@ -149,8 +149,8 @@ export const readUserMostBookedWith = async(uid)=>{
 // Ralph
 export const busiestHours = async () =>{
     try {
-    //   const response = await axios.get(url + "/busiest_hours")
-    const response = await axios.get('http://127.0.0.1:5000/gelatok/busiest_hours')
+      const response = await axios.get(url + "/busiest_hours")
+    // const response = await axios.get('http://127.0.0.1:5000/gelatok/busiest_hours')
       const data = response.data 
       return data 
     } catch (error) {
