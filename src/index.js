@@ -38,7 +38,7 @@ const App =()=>{
 
                 <Route exact path="/Home" element={sessionStorage.getItem('uid')?<HomePage/>:<NotLogged/>} />
                 <Route exact path="/UserView" element={sessionStorage.getItem('uid')?<UserView/>:<NotLogged/>} />
-                <Route exact path="/Dashboard" element={<Dashboard/>} />
+                <Route exact path="/Dashboard" element={sessionStorage.getItem('uid') ? <Dashboard/>:<NotLogged/>} />
                 <Route exact path="/Test" element={sessionStorage.getItem('uid')?<Test/>:<NotLogged/>} />
                 <Route exact path="/Profile" element={sessionStorage.getItem('uid')?<Profile/>:<NotLogged/>}/>
                 {/* <Route exact path="/Register" element={<RegisterForm/>}/> */}
