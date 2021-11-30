@@ -27,10 +27,10 @@ const App =()=>{
         {/* {sessionStorage.getItem('name')? <p>Welcome, {sessionStorage.getItem('name')}</p>:<a href='/Register'>Login</a>} */}
         {sessionStorage.getItem('uid')? <p>Welcome, {sessionStorage.getItem('uid')}</p>:null}
          <Default/>
-        <form onSubmit={(e)=>handleLogOut(e)}>
+        {/* <form onSubmit={(e)=>handleLogOut(e)}>
             <button>Logout</button>
         </form>
-      <a href='/'>  <button>Login</button></a>
+      <a href='/'>  <button>Login</button></a> */}
             <Routes>
                 {/* <Route exact path="/" element={<Default/>}/> */}
                 {/* <Route exact path="/" element={ <RegisterForm/>}/> */}

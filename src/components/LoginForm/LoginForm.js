@@ -36,39 +36,37 @@ const LoginForm=()=>{
       }
 
 return(
+  <div className={styles.card}>
+    
     <div className={styles.container}>
-        <a href='/'>Home</a>
             <form onSubmit={(e) => handleLoginSubmit(e)} className={styles.form}>
-            Login
-            <div>
-            <span>Name:</span>
-            <input
-                className={styles.emailInput}
-                placeholder='Email'
+            <div className={styles.login}>Login</div>
+            <div className={styles.nameInput}>
+            <span>Email:</span>
+            <input className={styles.paddingInput}
+                placeholder='email'
                 onChange={(e) =>
-                setLoginInput({ ...loginInput, uemail: e.target.value })
+                  setLoginInput({ ...loginInput, uemail: e.target.value })
                 }
                 value={loginInput.uemail}
-            />
+                />
             </div>
-            <div>
+            <div className={styles.passwordInput}>
             <span>Password:</span>
-            <input
+            <input className={styles.paddingInput}
                 value={loginInput.upassword}
                 onChange={(e) =>
-                setLoginInput({ ...loginInput, upassword: e.target.value })
+                  setLoginInput({ ...loginInput, upassword: e.target.value })
                 }
                 placeholder='password'
-            />
+                />
             </div>
-            <button>Loing</button>
+            <button className={styles.button}>Loing</button>
             {succesLog ? <p onClick={()=>setSuccesLog(false)} >succesfully logged in</p>:null}
             {wrongCredentials ? <p onClick={()=>setWrongCredentials(false)} >wrong credentials</p>:null}
         </form>
-        <form onSubmit={(e)=>handleLogOut(e)}>
-            <button>Logout</button>
-        </form>
         </div>
+      </div>
     )
 }
 

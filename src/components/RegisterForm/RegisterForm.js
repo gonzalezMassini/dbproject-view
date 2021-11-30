@@ -86,88 +86,91 @@ const RegisterForm = () => {
 
 
   return (
+    <div className={styles.card}>
+
     <div className={styles.container}>
-      <a href='/'>Home</a>
       <form onSubmit={(e) => handleSubmit(e)} className={styles.form} action=''>
-        Register
-        <div>
+      <div className={styles.register}>Register</div>
+        <div className={styles.emialInput}>
           <span>Email:</span>
           <input
-            className={styles.emialInput}
+            className={styles.paddingInput}
             placeholder='email'
             onChange={(e) =>
               setUserInput({ ...userInput, uemail: e.target.value })
             }
             value={userInput.uemail}
-          />
+            />
         </div>
 
-        <div>
+        <div className={styles.nameInput}>
           <span>Name:</span>
           <input
+          className={styles.paddingInput}
             placeholder='name'
             onChange={(e) =>
               setUserInput({ ...userInput, uname: e.target.value })
             }
             value={userInput.uname}
-          />
+            />
         </div>
 
-        <div>
+        <div className={styles.passwordInput}>
           <span>Password:</span>
           <input
+            className={styles.paddingInput}
             value={userInput.upassword}
             onChange={(e) =>
               setUserInput({ ...userInput, upassword: e.target.value })
             }
             placeholder='password'
-          />
+            />
         </div>
 
-        <div>
+        <div className={styles.roleInput}>
           <span>Role:</span>
-          <input
+          <input className={styles.paddingInput}
             value={userInput.urole}
             onChange={(e) =>
               setUserInput({ ...userInput, urole: e.target.value })
             }
             placeholder='role'
-          />
+            />
         </div>
-        <button>submit</button>
+        <button className={styles.button}>submit</button>
       </form>
       {/* <form onSubmit={(e) => handleLoginSubmit(e)} className={styles.form}>
         Login
-      <div>
-          <span>Name:</span>
-          <input
-            className={styles.emialInput}
-            placeholder='Email'
-            onChange={(e) =>
-              setLoginInput({ ...loginInput, uemail: e.target.value })
-            }
-            value={loginInput.uemail}
-          />
+        <div>
+        <span>Name:</span>
+        <input
+        className={styles.emialInput}
+        placeholder='Email'
+        onChange={(e) =>
+          setLoginInput({ ...loginInput, uemail: e.target.value })
+        }
+        value={loginInput.uemail}
+        />
         </div>
         <div>
-          <span>Password:</span>
-          <input
-            value={loginInput.upassword}
-            onChange={(e) =>
-              setLoginInput({ ...loginInput, upassword: e.target.value })
-            }
-            placeholder='password'
-          />
+        <span>Password:</span>
+        <input
+        value={loginInput.upassword}
+        onChange={(e) =>
+          setLoginInput({ ...loginInput, upassword: e.target.value })
+        }
+        placeholder='password'
+        />
         </div>
         <button>Loing</button>
         {succesLog ? <p onClick={()=>setSuccesLog(false)} >succesfully logged in</p>:null}
         {wrongCredentials ? <p onClick={()=>setWrongCredentials(false)} >wrong credentials</p>:null}
-      </form>
-      <form onSubmit={(e)=>handleLogOut(e)}>
+        </form>
+        <form onSubmit={(e)=>handleLogOut(e)}>
         <button>Logout</button>
       </form> */}
-      <button onClick={(e)=>handleDefault(e)}>get /</button>
     </div>
+      </div>
   );
 };
 

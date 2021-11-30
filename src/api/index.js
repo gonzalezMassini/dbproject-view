@@ -35,7 +35,7 @@ export const findAvailableRoom = async (timeframe)=>{
     try {
         const availableRoomResponse = await axios.get(
             `http://127.0.0.1:5000/gelatok/find_available_room/${timeframe}`,
-            {headers:{"Set-Cookies":"SameSite=None;Secure"}, withCredentials: true })
+            {headers:{"Set-Cookies":"SameSite=None;Secure"} })
 
         const data = availableRoomResponse.data
         return data
@@ -107,6 +107,18 @@ export const readUsers= async()=>{
      console.log(error)   
     }
 }
+
+
+
+export const createMeeting = async (bodySend) => {
+    const createMeetingResponse = await axios.post(url+"/create_meeting",
+            bodySend,
+            {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }},
+          )
+    const data =  createMeetingResponse.data
+    return data
+  };
+
 
 export const createUser = async (bodySend) => {
     const createUserResponse = await axios.post(url+"/create_user",

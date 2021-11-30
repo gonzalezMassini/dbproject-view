@@ -7,7 +7,7 @@ import BookMeeting from "./BookMeeting";
 import Schedule from "./Schedule";
 import {readMostBookedRoom, readUserMostBookedWith} from '../api/index.js'
 import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, Cell} from "recharts";
-
+import CreateMeeting from '../components/CreateMeeting/CreateMeeting.js'
 
 
 function UserView(){
@@ -31,6 +31,8 @@ function UserView(){
         {name: `Most booked user: ${thisUserMostBookedWith.uname}`, Counts: thisUserMostBookedWith['times booked']},
         {name: `Most booked room: ${thisUserMostUsedRoom.rnumber}`, Counts: thisUserMostUsedRoom['times used']}]
 
+
+        // create component
     const renderUserStatistics=()=>{
         return(
             <Container style={{ height: 800 }}>
@@ -62,9 +64,9 @@ function UserView(){
         )
     }
     const panes = [
-        {
-            menuItem: 'Booking', render: () => <BookMeeting/>
-        },
+        // {
+        //     menuItem: 'Booking', render: () => <BookMeeting/>
+        // },
         {
             menuItem: 'Schedule', render: () => <Schedule/>
         },
@@ -73,7 +75,10 @@ function UserView(){
         },
         {
             menuItem: 'User Statistics', render: () => renderUserStatistics()
-        }
+        },
+	{
+	    menuItem: 'Create Meeting', render: ()=> <CreateMeeting/>
+	}
     ]
     // const newDate=()=>{
 
