@@ -34,8 +34,8 @@ export const readUserOccupance=async(uid)=>{
 export const findAvailableRoom = async (timeframe)=>{
     try {
         const availableRoomResponse = await axios.get(
-            `http://127.0.0.1:5000/gelatok/find_available_room/${timeframe}`,
-            {headers:{"Set-Cookies":"SameSite=None;Secure"} })
+            url+`/find_available_room/${timeframe}`,
+            {headers:{ "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  } })
 
         const data = availableRoomResponse.data
         return data
