@@ -22,19 +22,22 @@ function Schedule(){
     //     'start': new Date(moment.now()),
     //     'end': new Date(moment.now())
     // }]);
+    // const [meetingTimeFrames, setMeetingTimeFrames] = useState([])
     const [dates, setDates] = useState([]);
     const [open, setOpen] = useState(false);
     const localizer = momentLocalizer(moment)
-    const [meetingTimeFrames, setMeetingTimeFrames] = useState([])
 
 
     const getUserOccupance=async()=>{
+        const meetingsTimeResponse = await readMeetingTimeFrames(sessionStorage.getItem('uid'))
+        // setMeetingTimeFrames(meetingsTimeResponse.meetings)
         const userOccupanceResponse = await readUserOccupance(sessionStorage.getItem('uid'))
         const userOccupanceList = userOccupanceResponse
         const timeFrameList = []
-        const titles = []
 
-        console.log(meetingTimeFrames)
+        // console.log(meetingTimeFrames)
+        let mtimeframe = meetingsTimeResponse.meetings
+        console.log(mtimeframe)
         // let notMeetingOccupance = []
         // userOccupanceList.forEach(timeFrame =>{
         //     if(!meetingTimeFrames.includes(timeFrame.uotimeframe)){
@@ -54,7 +57,7 @@ function Schedule(){
             timeFrameList.push({'uotimeframe': {
                 'startTime':element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[0].slice(0,-6),
                 'endTime': element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[1].slice(0,-6),
-                'occupanceType': !meetingTimeFrames.includes(element.uotimeframe) ? 'unavailable':'meeting'
+                'occupanceType': mtimeframe.includes(element.uotimeframe) ? 'meeting':'unavailable'
             } })
         });
         console.log(timeFrameList)
@@ -79,10 +82,10 @@ function Schedule(){
     }
 
     const getMeetingsTimeFrame=async()=>{
-        const meetingsTimeResponse = await readMeetingTimeFrames(sessionStorage.getItem('uid'))
-        // console.log(meetingsTimeResponse)
-        setMeetingTimeFrames(meetingsTimeResponse.meetings)
-        getUserOccupance()
+        // const meetingsTimeResponse = await readMeetingTimeFrames(sessionStorage.getItem('uid'))
+        // console.log(meetingsTimeResponse.meetings)
+        // setMeetingTimeFrames(meetingsTimeResponse.meetings)
+        // getUserOccupance()
     }
 
     const newUserOccupance=async(time)=>{
@@ -91,7 +94,9 @@ function Schedule(){
     }
 
     useEffect(()=>{
-        getMeetingsTimeFrame()
+        // getMeetingsTimeFrame()
+        getUserOccupance()
+
     },[])
 
     const handleSelect = ({ start, end }) => {
@@ -107,8 +112,7 @@ function Schedule(){
         const backgroundColor = event.title === 'meeting' ? 'blue': 'red';
         return { style: { backgroundColor } }
       }
-
-
+      
     return <Container style={{ height: 800 }}><Calendar
         // selectable
         localizer={localizer}
