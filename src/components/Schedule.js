@@ -82,6 +82,7 @@ function Schedule(){
         const meetingsTimeResponse = await readMeetingTimeFrames(sessionStorage.getItem('uid'))
         // console.log(meetingsTimeResponse)
         setMeetingTimeFrames(meetingsTimeResponse.meetings)
+        getUserOccupance()
     }
 
     const newUserOccupance=async(time)=>{
@@ -91,7 +92,6 @@ function Schedule(){
 
     useEffect(()=>{
         getMeetingsTimeFrame()
-        getUserOccupance()
     },[])
 
     const handleSelect = ({ start, end }) => {

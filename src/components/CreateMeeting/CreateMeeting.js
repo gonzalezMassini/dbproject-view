@@ -23,7 +23,8 @@ const CreateMeeting = () =>{
 	const [availableRooms, setAvailableRooms] = useState([])
 
 	const userOptions = users.map((user) => {
-		return ({key: user.uid,text: user.uname,value: user.uid})
+		// console.log(user)
+		return ({key: user.uid,text: user.urole,value: user.uid})
 	})
 
 	const roomOptions = availableRooms.map((room)=>({
