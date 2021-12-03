@@ -14,8 +14,9 @@ import axios from "axios"
 //     console.log(data);
 //   })
 
-const localhost = 'http://127.0.0.1:5000/gelatok'
-const url = 'https://bdproject-restapi.herokuapp.com/gelatok'
+// const localhost = 'http://127.0.0.1:5000/gelatok'
+const localhost = false
+const url = localhost ? 'http://127.0.0.1:5000/gelatok': 'https://bdproject-restapi.herokuapp.com/gelatok'
 
 // create user occupance
 export const createUserOccupance = async(uid, bodySend)=>{
