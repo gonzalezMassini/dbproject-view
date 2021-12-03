@@ -36,8 +36,10 @@ function Schedule(){
         const timeFrameList = []
 
         // console.log(meetingTimeFrames)
-        let mtimeframe = meetingsTimeResponse ? meetingsTimeResponse.meetings:[]
-        console.log(mtimeframe)
+        let mtimeframeListObj = meetingsTimeResponse ? meetingsTimeResponse.meetings:[]
+        let mtimeframe = mtimeframeListObj.map(obj => {return obj.uotimeframe})
+        // console.log(mtimeframeListObj)
+        // console.log(mtimeframe)
         // let notMeetingOccupance = []
         // userOccupanceList.forEach(timeFrame =>{
         //     if(!meetingTimeFrames.includes(timeFrame.uotimeframe)){
@@ -57,10 +59,10 @@ function Schedule(){
             timeFrameList.push({'uotimeframe': {
                 'startTime':element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[0].slice(0,-6),
                 'endTime': element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[1].slice(0,-6),
-                'occupanceType': mtimeframe.includes(element.uotimeframe) ? 'meeting':'unavailable'
+                'occupanceType': mtimeframe.includes(element.uotimeframe) ? mtimeframeListObj[mtimeframe.indexOf(element.uotimeframe)].title :'unavailable'
             } })
         });
-        console.log(timeFrameList)
+        // console.log(timeFrameList)
 
         const userOccupanceIntoDates = []
 
@@ -72,7 +74,7 @@ function Schedule(){
                 'end': timeFrame.uotimeframe.endTime
             })
         })
-        console.log(userOccupanceIntoDates)
+        // console.log(userOccupanceIntoDates)
         // console.log(userOccupanceList)
         // console.log(userOccupanceIntoDates)
         // userOccupanceList.forEach(timeFrame =>{
@@ -109,7 +111,7 @@ function Schedule(){
     }
 
    const eventPropGetter=(event) => {
-        const backgroundColor = event.title === 'meeting' ? 'blue': 'red';
+        const backgroundColor = event.title === 'unavailable' ? 'red': 'blue';
         return { style: { backgroundColor } }
       }
       

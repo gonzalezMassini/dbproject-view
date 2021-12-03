@@ -33,6 +33,7 @@ export const readMeetingTimeFrames = async(uid)=>{
         const meetingsTimeFramesResponse = await axios.get(url+`/user/${uid}/read_meeting_occupance`,
         {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }})
         const data = meetingsTimeFramesResponse.data
+        // console.log(data)
         return data
     } catch (error) {
         console.log(error)
@@ -124,6 +125,7 @@ export const readUsers= async()=>{
         {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }},
         )
         const data = usersResponse.data
+        // console.log(data)
         return data
     } catch (error) {
      console.log(error)   
