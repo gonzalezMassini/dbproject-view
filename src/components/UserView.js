@@ -71,18 +71,18 @@ function UserView(){
         {
             menuItem: 'Schedule', render: () => <Schedule/>
         },
-        {
-            menuItem: 'Mark Availability', render: () => <BookMeeting/>
-        },
+        // {
+        //     menuItem: 'Mark Availability', render: () => <BookMeeting/>
+        // },
         // {
         //     menuItem: 'Room Management', render: () => <Tab.Pane active={isAuth}><BookMeeting/></Tab.Pane>
         // },
         {
+            menuItem: 'Create Meeting', render: ()=> <CreateMeeting/>
+        },
+        {
             menuItem: 'User Statistics', render: () => renderUserStatistics()
         },
-	{
-	    menuItem: 'Create Meeting', render: ()=> <CreateMeeting/>
-	}
     ]
     // const newDate=()=>{
 
