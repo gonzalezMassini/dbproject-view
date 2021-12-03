@@ -14,8 +14,30 @@ import axios from "axios"
 //     console.log(data);
 //   })
 
-
+const localhost = 'http://127.0.0.1:5000/gelatok'
 const url = 'https://bdproject-restapi.herokuapp.com/gelatok'
+
+// create user occupance
+export const createUserOccupance = async(uid, bodySend)=>{
+    const createOccupanceResponse = await axios.post(url+`/user/${uid}/create_user_occupance`,
+    bodySend,
+    {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }})
+    const data = createOccupanceResponse.data
+    return data
+}
+
+
+// read meeting timeframes for given user
+export const readMeetingTimeFrames = async(uid)=>{
+    try {
+        const meetingsTimeFramesResponse = await axios.get(url+`/user/${uid}/read_meeting_occupance`,
+        {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }})
+        const data = meetingsTimeFramesResponse.data
+        return data
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 // read user occupance given user id
 export const readUserOccupance=async(uid)=>{
@@ -123,7 +145,7 @@ export const createMeeting = async (bodySend) => {
 export const createUser = async (bodySend) => {
     const createUserResponse = await axios.post(url+"/create_user",
             bodySend,
-            {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true"  }},
+            {headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin":true}},
           )
     const data = createUserResponse.data
     return data

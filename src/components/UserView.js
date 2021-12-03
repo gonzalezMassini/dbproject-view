@@ -64,15 +64,15 @@ function UserView(){
         )
     }
     const panes = [
-        // {
-        //     menuItem: 'Booking', render: () => <BookMeeting/>
-        // },
         {
             menuItem: 'Schedule', render: () => <Schedule/>
         },
         {
-            menuItem: 'Room Management', render: () => <Tab.Pane active={isAuth}><BookMeeting/></Tab.Pane>
+            menuItem: 'Mark Availability', render: () => <BookMeeting/>
         },
+        // {
+        //     menuItem: 'Room Management', render: () => <Tab.Pane active={isAuth}><BookMeeting/></Tab.Pane>
+        // },
         {
             menuItem: 'User Statistics', render: () => renderUserStatistics()
         },

@@ -3,6 +3,8 @@ import {Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import {Button, Card, Container, Modal} from "semantic-ui-react";
+import {createUserOccupance} from '../api/index.js'
+
 
 
 // Event {
@@ -18,6 +20,22 @@ function BookMeeting(){
     const [dates, setDates] = useState([]);
     const [open, setOpen] = useState(false);
     const localizer = momentLocalizer(moment)
+    // const [startState, setStartState] = useState()
+    // const [endState, setEndState]= useState()
+
+    const newUserOccupance=async(time)=>{
+        let bodySend={"uotimeframe":time}
+        await createUserOccupance(sessionStorage.getItem('uid'),bodySend)
+    }
+
+    const handleSelect = ({ start, end }) => {
+        const title = window.prompt('New Event name')
+        if (title){
+            let time = "["+moment(start).format('MM-DD-YYYY HH:mm')+", "+moment(end).format('MM-DD-YYYY HH:mm')+"]"
+            // console.log(time)
+            newUserOccupance(time)
+        }
+    }
 
     return <Container style={{ height: 800 }}><Calendar
         selectable
@@ -27,16 +45,11 @@ function BookMeeting(){
         endAccessor="end"
         views={["month", "day"]}
         defaultDate={Date.now()}
-        onSelecting = {(selected) =>{ setDates([{
-                        'title': 'Selection',
-                        'allDay': false,
-                        'start': new Date(selected.start),
-                        'end': new Date(selected.end)
-                    }] ) } }
+        onSelectSlot={handleSelect}
     >
 
     </Calendar>
-        <Modal
+        {/* <Modal
             centered={false}
             open={open}
             onClose={() => setOpen(false)}
@@ -51,17 +64,17 @@ function BookMeeting(){
             <Modal.Actions>
                 <Button onClick={() => setOpen(false)}>OK</Button>
             </Modal.Actions>
-        </Modal>
+        </Modal>*/}
         <Container fluid>
-        <Button
+        {/* <Button
             fluid
             onClick={() => {setOpen(true)}}
-        > Book Meeting </Button>
-        <Button
+        > Book Meeting </Button> */}
+        {/* <Button
             fluid
             onClick={() => {setOpen(true)}}
-        > Mark as unavailable</Button>
-    </Container>
+        > Mark as unavailable</Button> */}
+    </Container> 
     </Container>
 
 
