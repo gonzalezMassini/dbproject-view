@@ -4,6 +4,8 @@ import {createMeeting, readUsers, findAvailableRoom} from "../../api/index.js"
 import { Dropdown } from 'semantic-ui-react'
 import DateTimePicker from 'react-datetime-picker';
 import moment from "moment";
+import { useNavigate } from 'react-router-dom'
+
 
 const CreateMeeting = () =>{
 
@@ -47,12 +49,14 @@ const CreateMeeting = () =>{
 		"attendees": attendees.map(uid => {return {"uid": uid}}),
 		"uid":parseInt(sessionStorage.getItem('uid'))
 	}
-
+	let navigate = useNavigate();
 	const handleSubmit=async(e)=>{
 		e.preventDefault()
 		// console.log(bodySend)
 		if((valueStart && valueEnd)&&(valueStart<valueEnd)){
 			await createMeeting(bodySend)
+			navigate('/UserView')
+          	window.location.reload(true)
 		}else{
 			console.log('incorrect date')
 		}

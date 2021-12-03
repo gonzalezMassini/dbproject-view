@@ -1,8 +1,11 @@
 import React,{useState} from "react";
 import { logIn } from "../../api/index.js";
 import styles from './LoginForm.module.css'
+import { useNavigate } from 'react-router-dom'
+// import { useNavigate } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 
-const LoginForm=()=>{
+const LoginForm=(props)=>{
     const [succesLog, setSuccesLog] = useState(false)
     const [wrongCredentials, setWrongCredentials] = useState(false)
     const [loginInput, setLoginInput] = useState({
@@ -15,6 +18,9 @@ const LoginForm=()=>{
       }
 
 
+    // let history = useHistory();
+    let navigate = useNavigate();
+
       const handleLoginSubmit=async(e)=>{
         e.preventDefault();
         const result = await logIn(logInBodySend);
@@ -23,7 +29,12 @@ const LoginForm=()=>{
           sessionStorage.setItem('uid',uid)
           console.log(sessionStorage.getItem('uid'))
           setSuccesLog(true)
+          // window.location.reload(true)
+          navigate('/UserView')
           window.location.reload(true)
+          // history.push("/UserView");
+          // props.history.push('/UserView')
+          // return <Redirect to='/UserView' />
         }else{
           console.log(uid)
           setWrongCredentials(true)
@@ -69,5 +80,6 @@ return(
       </div>
     )
 }
+
 
 export default LoginForm

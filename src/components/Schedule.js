@@ -5,6 +5,8 @@ import moment from 'moment';
 import {Button, Card, Container, Modal} from "semantic-ui-react";
 import {readUserOccupance, readMeetingTimeFrames, createUserOccupance} from '../api/index.js'
 import CreateMeeting from '../components/CreateMeeting/CreateMeeting.js' 
+import { useNavigate } from 'react-router-dom'
+
 
 
 // Event {
@@ -105,10 +107,12 @@ function Schedule(){
         // setMeetingTimeFrames(meetingsTimeResponse.meetings)
         // getUserOccupance()
     }
-
+    let navigate = useNavigate();
     const newUserOccupance=async(time, title)=>{
         let bodySend={"uotimeframe":time,title }
         await createUserOccupance(sessionStorage.getItem('uid'),bodySend)
+        navigate('/UserView')
+        window.location.reload(true)
     }
 
     useEffect(()=>{
