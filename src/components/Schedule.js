@@ -36,7 +36,7 @@ function Schedule(){
         const timeFrameList = []
 
         // console.log(meetingTimeFrames)
-        let mtimeframe = meetingsTimeResponse.meetings
+        let mtimeframe = meetingsTimeResponse ? meetingsTimeResponse.meetings:[]
         console.log(mtimeframe)
         // let notMeetingOccupance = []
         // userOccupanceList.forEach(timeFrame =>{

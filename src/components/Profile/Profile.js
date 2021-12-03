@@ -23,8 +23,8 @@ const Profile =()=>{
             profile
             <div>
                 <p>id: {user.uid}</p>
-                <p>name: {user.uname}</p>
-                <p>role: {user.urole}</p>
+                <p>name: {user.urole}</p>
+                <p>role: {user.upassword}</p>
             </div>
 
         </div>
