@@ -44,6 +44,7 @@ const Profile =()=>{
             {!isEdit ?<div>
                 <p>id: {user.uid}</p>
                 <p>name: {user.uname}</p>
+                <p>email: {user.uemail}</p>
                 <p>role: {user.urole}</p>
             </div>
             :
