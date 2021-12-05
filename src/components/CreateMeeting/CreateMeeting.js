@@ -9,8 +9,8 @@ import { useNavigate } from 'react-router-dom'
 
 const CreateMeeting = () =>{
 
-	const [valueStart, onChangeStart] = useState();
-	const [valueEnd, onChangeEnd] = useState()
+	const [valueStart, onChangeStart] = useState(new Date());
+	const [valueEnd, onChangeEnd] = useState(new Date())
 
 	const [meetingInfo, setMeetingInfo] = useState({
 													"mtype":"",
@@ -26,7 +26,7 @@ const CreateMeeting = () =>{
 
 	const userOptions = users.map((user) => {
 		// console.log(user)
-		return ({key: user.uid,text: user.urole,value: user.uid})
+		return ({key: user.uid,text: user.uname,value: user.uid})
 	})
 
 	const roomOptions = availableRooms.map((room)=>({
@@ -34,7 +34,7 @@ const CreateMeeting = () =>{
 		text: room.rnumber,
 		value: room.rid
 	}))
-	  
+
 
 	const getUsers = async ()=>{
 		const getUsersResponse = await readUsers()
@@ -56,7 +56,7 @@ const CreateMeeting = () =>{
 		if((valueStart && valueEnd)&&(valueStart<valueEnd)){
 			await createMeeting(bodySend)
 			navigate('/UserView')
-          	window.location.reload(true)
+   window.location.reload(true)
 		}else{
 			console.log('incorrect date')
 		}

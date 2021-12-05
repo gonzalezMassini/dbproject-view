@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
 import {createUser, logIn, logOut, defaultGet} from '../../api/index.js'
+import { Dropdown } from 'semantic-ui-react'
+
 
 const RegisterForm = () => {
 
-  const [succesLog, setSuccesLog] = useState(false)
-  const [wrongCredentials, setWrongCredentials] = useState(false)
 
   const [userInput, setUserInput] = useState({
     uemail: "",
@@ -14,10 +14,7 @@ const RegisterForm = () => {
     urole: "",
   });
 
-  const [loginInput, setLoginInput] = useState({
-    uemail: "",
-    upassword: "",
-  })
+  
 
 
   let bodySend = {
@@ -28,10 +25,6 @@ const RegisterForm = () => {
   }
 
 
-  let logInBodySend = {
-      uemail: loginInput.uemail,
-      upassword: loginInput.upassword
-    }
 
 
   const handleSubmit = async (e) => {
@@ -42,48 +35,21 @@ const RegisterForm = () => {
       setUserInput({ uemail: "", uname: "", upassword: "", urole: "" });
     }
   };
-  const handleLoginSubmit=async(e)=>{
-    e.preventDefault();
-    // sessionStorage.setItem('name', userInput.uname)
-    const result = await logIn(logInBodySend);
-    // console.log(result)
-    let uid = result.uid
-    if(typeof(uid)==='number'){
-      let name = loginInput.uemail
-      sessionStorage.setItem('name',name)
-      setSuccesLog(true)
-      window.location.reload(true)
-    }else{
-      console.log(uid)
-      setWrongCredentials(true)
-    }
-
-    // console.log('here');
-    // console.log(result.uid)
-    // console.log(result)
-    setLoginInput({uemail: "", upassword: "" });
-}
-
-  
-  const handleLogOut= async(e)=>{
-    // e.preventDefault();
-    sessionStorage.removeItem('name')
-    // const result = await logOut()
-    // console.log(result)
-  }
-
-  const handleDefault=async(e)=>{
-    // const result = await defaultGet()
-    // console.log(result)
-    let uid = sessionStorage.getItem('uid')
-    if(uid){
-      console.log(uid)
-    }else{
-      console.log('must log in')
-    }
-  }
 
 
+
+
+	const roleOptions = [{
+		key: 1,
+		text: "Student",
+		value: 'student'
+	},
+  {
+    key: 2,
+		text: "Professor",
+		value: "professor"
+	},
+]
 
   return (
     <div className={styles.card}>
@@ -126,49 +92,17 @@ const RegisterForm = () => {
             placeholder='password'
             />
         </div>
-
         <div className={styles.roleInput}>
-          <span>Role:</span>
-          <input className={styles.paddingInput}
-            value={userInput.urole}
-            onChange={(e) =>
-              setUserInput({ ...userInput, urole: e.target.value })
-            }
-            placeholder='role'
+          <Dropdown
+            placeholder='select role'
+            fluid
+            selection
+            options={roleOptions}
+            onChange={(e,{value})=> {setUserInput({...userInput, urole: value});}}
             />
-        </div>
+          </div>
         <button className={styles.button}>submit</button>
       </form>
-      {/* <form onSubmit={(e) => handleLoginSubmit(e)} className={styles.form}>
-        Login
-        <div>
-        <span>Name:</span>
-        <input
-        className={styles.emialInput}
-        placeholder='Email'
-        onChange={(e) =>
-          setLoginInput({ ...loginInput, uemail: e.target.value })
-        }
-        value={loginInput.uemail}
-        />
-        </div>
-        <div>
-        <span>Password:</span>
-        <input
-        value={loginInput.upassword}
-        onChange={(e) =>
-          setLoginInput({ ...loginInput, upassword: e.target.value })
-        }
-        placeholder='password'
-        />
-        </div>
-        <button>Loing</button>
-        {succesLog ? <p onClick={()=>setSuccesLog(false)} >succesfully logged in</p>:null}
-        {wrongCredentials ? <p onClick={()=>setWrongCredentials(false)} >wrong credentials</p>:null}
-        </form>
-        <form onSubmit={(e)=>handleLogOut(e)}>
-        <button>Logout</button>
-      </form> */}
     </div>
       </div>
   );

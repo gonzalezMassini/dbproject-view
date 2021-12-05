@@ -7,7 +7,9 @@ import BookMeeting from "./BookMeeting";
 import Schedule from "./Schedule";
 import {readMostBookedRoom, readUserMostBookedWith} from '../api/index.js'
 import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, Cell} from "recharts";
-import CreateMeeting from '../components/CreateMeeting/CreateMeeting.js'
+// import CreateMeeting from '../components/CreateMeeting/CreateMeeting.js'
+import Meetings from './Meetings/Meetings';
+import RoomManagement from './RoomManagement/RoomManagement';
 
 
 function UserView(){
@@ -74,16 +76,22 @@ function UserView(){
         // {
         //     menuItem: 'Mark Availability', render: () => <BookMeeting/>
         // },
-        // {
-        //     menuItem: 'Room Management', render: () => <Tab.Pane active={isAuth}><BookMeeting/></Tab.Pane>
-        // },
         {
-            menuItem: 'Create Meeting', render: ()=> <CreateMeeting/>
+            menuItem: 'Room Management', render: () => <RoomManagement/>
+        },
+        {
+            // menuItem: 'Create Meeting', render: ()=> <CreateMeeting/>
+            menuItem: 'Create Meeting', render: ()=> <Meetings/>
         },
         {
             menuItem: 'User Statistics', render: () => renderUserStatistics()
         },
     ]
+    panes.map(pane => {
+        if(sessionStorage.getItem('urole')!=='super admin' && pane.menuItem === 'Room Management'){
+            panes.splice(panes.indexOf(pane),1)
+        }
+    })
     // const newDate=()=>{
 
     //     var fourDaysForward = new moment().add(4, 'day').add(3,'h');  
@@ -100,7 +108,8 @@ function UserView(){
         {/* <form>
             <input/>
         </form> */}
-            <Tab panes={panes}/>
+            <Tab panes={panes}
+            />
         </>
     )
 

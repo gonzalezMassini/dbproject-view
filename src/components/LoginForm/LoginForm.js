@@ -25,8 +25,10 @@ const LoginForm=(props)=>{
         e.preventDefault();
         const result = await logIn(logInBodySend);
         let uid = result.uid
+        let role = result.urole
         if(typeof(uid)==='number'){
           sessionStorage.setItem('uid',uid)
+          sessionStorage.setItem('urole',role)
           console.log(sessionStorage.getItem('uid'))
           setSuccesLog(true)
           // window.location.reload(true)

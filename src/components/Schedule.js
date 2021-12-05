@@ -4,27 +4,11 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import {Button, Card, Container, Modal} from "semantic-ui-react";
 import {readUserOccupance, readMeetingTimeFrames, createUserOccupance} from '../api/index.js'
-import CreateMeeting from '../components/CreateMeeting/CreateMeeting.js' 
 import { useNavigate } from 'react-router-dom'
 
 
 
-// Event {
-//     title: string,
-//         start: Date,
-//         end: Date,
-//         allDay?: boolean
-//     resource?: any,
-// }
-
-
 function Schedule(){
-    // const [dates, setDates] = useState([{
-    //     'title': 'Selection',
-    //     'allDay': false,
-    //     'start': new Date(moment.now()),
-    //     'end': new Date(moment.now())
-    // }]);
     const [meetingTimeFrames, setMeetingTimeFrames] = useState([])
     const [dates, setDates] = useState([]);
     const [open, setOpen] = useState(false);
@@ -34,41 +18,16 @@ function Schedule(){
 
     const getUserOccupance=async()=>{
         const meetingsTimeResponse = await readMeetingTimeFrames(sessionStorage.getItem('uid'))
-        // setMeetingTimeFrames(meetingsTimeResponse.meetings)
-        // const meetTimes = meetingsTimeResponse.meetings.map(time =>{
-        //     return(
-        //         time.uotimeframe
-        //     )
-        // })
-        // console.log(meetTimes)
-        // setMeetingTimeFrames(meetTimes)
+        
         const userOccupanceResponse = await readUserOccupance(sessionStorage.getItem('uid'))
-        // console.log(userOccupanceResponse)
         const userOccupanceList = userOccupanceResponse
         const timeFrameList = []
 
-        // console.log(meetingTimeFrames)
         let mtimeframeListObj = meetingsTimeResponse ? meetingsTimeResponse.meetings:[]
         let mtimeframe = mtimeframeListObj.map(obj => {return obj.uotimeframe})
-        // console.log(mtimeframeListObj)
-        // console.log(mtimeframe)
-        // let notMeetingOccupance = []
-        // userOccupanceList.forEach(timeFrame =>{
-        //     if(!meetingTimeFrames.includes(timeFrame.uotimeframe)){
-        //         notMeetingOccupance.push({"uotimeframe": timeFrame.uotimeframe})
-        //     }
-        // })
-        // console.log(userOccupanceList)
-
-        // notMeetingOccupance.forEach(element => {
-        //     timeFrameList.push({'uotimeframe': {
-        //         'startTime':element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[0].slice(0,-6),
-        //         'endTime': element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[1].slice(0,-6)
-        //     } })
-        // });
+        
 
         userOccupanceList.forEach(element => {
-            // console.log(element.title)
             timeFrameList.push({'uotimeframe': {
                 'colorCode': mtimeframe.includes(element.uotimeframe) ? 'blue':'red',
                 'startTime':element['uotimeframe'].replace(/[\[\]]/g,'').split(',')[0].slice(0,-6),
@@ -78,7 +37,6 @@ function Schedule(){
                 element.title ? element.title : 'unavailable'
             } })
         });
-        // console.log(timeFrameList)
 
         const userOccupanceIntoDates = []
 
@@ -92,12 +50,6 @@ function Schedule(){
             })
         })
 
-        // console.log(userOccupanceIntoDates)
-        // console.log(userOccupanceList)
-        // console.log(userOccupanceIntoDates)
-        // userOccupanceList.forEach(timeFrame =>{
-        //     console.log(timeFrame)
-        // })
         setDates(userOccupanceIntoDates)
     }
 
