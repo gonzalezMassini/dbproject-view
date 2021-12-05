@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./RegisterForm.module.css";
-import {createUser, logIn, logOut, defaultGet} from '../../api/index.js'
+import {createUser} from '../../api/index.js'
 import { Dropdown } from 'semantic-ui-react'
 
 
@@ -17,18 +17,19 @@ const RegisterForm = () => {
   
 
 
-  let bodySend = {
-    uemail: userInput.uemail,
-    uname: userInput.uname,
-    upassword: userInput.upassword,
-    urole: userInput.urole,
-  }
+  
 
 
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    let bodySend = {
+      uemail: userInput.uemail,
+      uname: userInput.uname,
+      upassword: userInput.upassword,
+      urole: userInput.urole,
+    }
     if(bodySend.uemail && bodySend.uname && bodySend.upassword && bodySend.urole){
       const createUserResponse = await createUser(bodySend);
       console.log(createUserResponse)

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import CreateMeeting from "../CreateMeeting/CreateMeeting";
 import { readMeetingsByUser, readRooms, updateMeeting } from "../../api";
 import styles from './Meetings.module.css'
-import moment from "moment";
 import { Dropdown } from "semantic-ui-react";
 
 
@@ -12,12 +11,6 @@ const Meetings =()=>{
     const [rooms, setRooms] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [editInput, setEditInput] = useState('')
-    const [attendeesList, setAttendees] = useState([])
-    // let attendeesOptions = attendeesList.map((attendee)=>({
-    //     key : attendee.uid*attendee.mid,
-    //     text : attendee.uname,
-    //     value : attendee.uid
-    // }))
     const [options, setOptions] = useState([])
 
 
@@ -26,7 +19,6 @@ const Meetings =()=>{
         const meetingsByUserResponse = await readMeetingsByUser(uid)
         console.log(meetingsByUserResponse.attendees)
 
-        // setAttendees(meetingsByUser.attendees)
         let attendeesOptions = meetingsByUserResponse.attendees.map((attendee)=>({
             key : attendee.uid*attendee.mid,
             text : attendee.uname,
@@ -34,11 +26,9 @@ const Meetings =()=>{
         }))
         setOptions(attendeesOptions)
         const meetsByUser = meetingsByUserResponse.createdMeetings
-        // console.log(meetsByUser)
 
 
         const roomsResponse = await readRooms()
-        // console.log(roomsResponse)
         const roomsList = roomsResponse.rooms
 
 
@@ -58,16 +48,10 @@ const Meetings =()=>{
 
     }
 
-    const getRooms = async()=>{
-        // const roomsResponse = await readRooms()
-        // console.log(roomsResponse)
-        // const roomsList = roomsResponse.rooms
-        // setRooms(roomsList)
-    }
+    
 
     useEffect(()=>{
         getMeetingsByUser()
-        // getRooms()
     },[])
 
     const handleEdit = async()=>{
@@ -75,7 +59,6 @@ const Meetings =()=>{
             let bodySend = {
                 "mtype": editInput
             }
-            // console.log(bodySend)
             await updateMeeting(localStorage.getItem('mid'), bodySend)
             localStorage.removeItem('mid')
             window.location.reload(true)
@@ -95,6 +78,7 @@ const Meetings =()=>{
                                 <label>meeting description:</label>
                                 <input onChange={(e)=> setEditInput(e.target.value)}/>
                                 <button onClick={()=> handleEdit()}>edit</button>
+                                <button onClick={()=>setIsEdit(false)}>cancel</button>
                             </div>)
                             :
                             (<div className={styles.meet}>

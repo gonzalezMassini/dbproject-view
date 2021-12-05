@@ -1,36 +1,10 @@
-import React, {Component, useEffect, useState} from 'react';
-import {Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import React, {useEffect, useState} from 'react';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
-import moment from 'moment';
-import {Button, Container, Modal, Card, Table, Icon, Label, Menu } from "semantic-ui-react";
-
-import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, Cell} from "recharts";
-import {readMostBookedRoom, readUserMostBookedWith, mostBookedRooms, mostBookedUsers, busiestHours,} from '../api/index.js'
-// import Card from '../components/Card/Card.js'
+import { Container, Table } from "semantic-ui-react";
+import { mostBookedRooms, mostBookedUsers, busiestHours,} from '../api/index.js'
 
 
 function BookMeeting(){
-    // const [data, setData] = useState([{"name": 1, "Counts": 5},
-    //                                             {"name": 2, "Counts": 4},
-    //                                             {"name": 3, "Counts": 3},
-    //                                             {"name": 4, "Counts": 2},
-    //                                             {"name": 5, "Counts": 1}]);
-
-    const barColors = ["#1f77b4", "#ff7f0e"]
-
-    const [thisUserMostUsedRoom,setThisUserMostUsedRoom] = useState({})
-    // const getMostBookedRoom=async()=>{
-    //     const mostBookedRoomResponse = await readMostBookedRoom(sessionStorage.getItem('uid'))
-    //     const mostBookedRoom = mostBookedRoomResponse['most used room']
-    //     setThisUserMostUsedRoom(mostBookedRoom)
-    // }
-
-    const [thisUserMostBookedWith,setThisUserMostBookedWith] = useState({})
-    // const getMostBookedWith=async()=>{
-    //     const mostBookedWithResponse = await readUserMostBookedWith(sessionStorage.getItem('uid'))
-    //     const mostBookedWith = mostBookedWithResponse['most_booked_with'][0]
-    //     setThisUserMostBookedWith(mostBookedWith)
-    // }
 
     const [busiestHour, setBusiestHour] = useState([])
     const getBusiestHours =  async() => {
@@ -38,9 +12,6 @@ function BookMeeting(){
         console.log(busiestHoursResponse.busiest_hours)
         const busiestHoursList = busiestHoursResponse.busiest_hours
         setBusiestHour(busiestHoursList)
-        // const busyTemp = busiestHoursResponse["busiest hour"]
-        // console.log(busyTemp)
-        // setBusiestHour(busyTemp)
     }
 
     const [mBookedR, setMostBookedRooms] = useState([])
@@ -62,22 +33,15 @@ function BookMeeting(){
 
 
     useEffect(()=>{
-        // getMostBookedRoom()
-        // getMostBookedWith()
         getBusiestHours()
         getMostBookedRooms()
         getMostBookedUsers()
     },[])
 
-    // const data = [
-    //     {name: `Most booked user: ${thisUserMostBookedWith.uname}`, Counts: thisUserMostBookedWith['times booked']},
-    //     {name: `most booked room: ${thisUserMostUsedRoom.rnumber}`, Counts: thisUserMostUsedRoom['times used']}]
     
-    const data = []
 
     return (
     <Container style={{ height: 800 }}>
-        {/* <div>{busiestHour[0].count}</div> */}
         <h1>Global Statistics</h1>
         <h1>Top 10 most booked users</h1>
         <Table celled>

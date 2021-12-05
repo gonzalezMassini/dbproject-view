@@ -25,7 +25,6 @@ const CreateMeeting = () =>{
 	const [availableRooms, setAvailableRooms] = useState([])
 
 	const userOptions = users.map((user) => {
-		// console.log(user)
 		return ({key: user.uid,text: user.uname,value: user.uid})
 	})
 
@@ -52,7 +51,6 @@ const CreateMeeting = () =>{
 	let navigate = useNavigate();
 	const handleSubmit=async(e)=>{
 		e.preventDefault()
-		// console.log(bodySend)
 		if((valueStart && valueEnd)&&(valueStart<valueEnd)){
 			await createMeeting(bodySend)
 			navigate('/UserView')
@@ -64,7 +62,6 @@ const CreateMeeting = () =>{
 
 	const getRoomAtTimeframe=async()=>{
 		let date = "["+moment(valueStart).format('MM-DD-YYYY HH:mm')+", "+moment(valueEnd).format('MM-DD-YYYY HH:mm')+"]"
-		// console.log(date)
 		const roomsResponse = await findAvailableRoom(date)
 		const roomsList = roomsResponse ? roomsResponse["available rooms"]:[]
 		setAvailableRooms(roomsList)
@@ -73,7 +70,6 @@ const CreateMeeting = () =>{
 	
 	useEffect(()=>{
 		getUsers()
-		// console.log(valueStart<valueEnd)
 		if((valueStart && valueEnd)&&(valueStart<valueEnd)){
 			getRoomAtTimeframe()
 		}else{
@@ -118,11 +114,9 @@ const CreateMeeting = () =>{
 			</div>
 			<div>
 				<label>room:</label>
-				{/* <input value={meetingInfo.rid} onChange={(e)=> setMeetingInfo({...meetingInfo, rid: e.target.value})}/> */}
 				<Dropdown
 					placeholder='Select room'
 					fluid
-					// multiple
 					selection
 					options={roomOptions}
 					onChange={(e,{value})=> {setMeetingInfo({...meetingInfo, rid: value});}}

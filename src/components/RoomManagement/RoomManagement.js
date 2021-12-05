@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from './RoomManagement.module.css'
 import {createRoom, readRooms, updateRoom, createRoomOccupance} from '../../api'
-import Card from '../Card/Card.js'
 import DateTimePicker from 'react-datetime-picker';
 import moment from "moment";
 import { readRoomOccupance } from "../../api";
-import {Calendar, momentLocalizer, Views } from 'react-big-calendar';
+import {Calendar, momentLocalizer } from 'react-big-calendar';
 import { Container } from "semantic-ui-react";
 
 

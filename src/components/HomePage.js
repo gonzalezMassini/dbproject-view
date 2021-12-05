@@ -1,5 +1,5 @@
-import React, {Component, useState} from 'react';
-import {Button, Divider, Form, Grid, Header, Modal, Segment, Tab} from 'semantic-ui-react';
+import React, { useState} from 'react';
+import {Button, Divider, Form, Grid, Header, Modal, Segment} from 'semantic-ui-react';
 
 
 

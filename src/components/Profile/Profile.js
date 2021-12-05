@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { readUser, readUserMostBookedWith } from "../../api";
+import { readUser } from "../../api";
 import styles from './Profile.module.css'
 import { updateUser } from "../../api";
 
 const Profile =()=>{
-    // console.log(sessionStorage.getItem('uid'))
 
     const [user, setUser] = useState({})
     
@@ -27,9 +26,7 @@ const Profile =()=>{
                 "uname":editUserInput.uname ? editUserInput.uname : user.uname
             }
             await updateUser(sessionStorage.getItem('uid'), bodySend)
-            // setEditUserInput({"uemail":"", "upassword":"", "uname":""})
             window.location.reload(true)
-
         }
         setIsEdit(prev => !prev)
     }

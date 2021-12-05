@@ -12,7 +12,6 @@ const Default=()=>{
             <a href='/' className={styles.headerlinks}>Home</a>
             <a href='/UserView' className={styles.headerlinks}>UserView</a>
             <a href='/Dashboard' className={styles.headerlinks}>Dashboard</a>
-            {/* <a href='/Test' className={styles.headerlinks}>Test</a> */}
             <a href='/Profile' className={styles.headerlinks}>Profile</a>
             <form onSubmit={(e)=>handleLogOut(e)}>
                 <button className={styles.button}>Logout</button>
