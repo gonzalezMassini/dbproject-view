@@ -22,9 +22,9 @@ const Profile =()=>{
         e.preventDefault()
         if(editUserInput.uemail || editUserInput.uname || editUserInput.upassword){
             let bodySend={
-                "uemail":editUserInput.uemail ? editUserInput.uemail:user.uname,
-                "upassword":editUserInput.upassword ? editUserInput.upassword:user.uemail,
-                "uname":editUserInput.uname ? editUserInput.uname : user.urole
+                "uemail":editUserInput.uemail ? editUserInput.uemail:user.uemail,
+                "upassword":editUserInput.upassword ? editUserInput.upassword:user.upassword,
+                "uname":editUserInput.uname ? editUserInput.uname : user.uname
             }
             await updateUser(sessionStorage.getItem('uid'), bodySend)
             // setEditUserInput({"uemail":"", "upassword":"", "uname":""})
