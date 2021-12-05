@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Bar, BarChart, CartesianGrid, Legend, Tooltip, XAxis, YAxis, Cell} from "recharts";
-import {readMostBookedRoom, readUserMostBookedWith} from './api/index.js'
+import {readMostBookedRoom, readUserMostBookedWith} from '../api/index.js'
 import { Container} from "semantic-ui-react";
 
 

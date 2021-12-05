@@ -4,7 +4,7 @@ import {Tab} from "semantic-ui-react";
 import Schedule from "./Schedule";
 import Meetings from './Meetings/Meetings';
 import RoomManagement from './RoomManagement/RoomManagement';
-import UserStatistics from '../UserStatistics';
+import UserStatistics from './UserStatistics';
 
 
 function UserView(){
