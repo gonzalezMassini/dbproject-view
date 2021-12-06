@@ -102,6 +102,7 @@ const RoomManagement =(props)=>{
             }
             await updateRoom(localStorage.getItem('rid'), bodySend)
             localStorage.removeItem('rid')
+            localStorage.setItem('activePane', 1)
             window.location.reload(true)
         }
         setIsEdit(false); 
