@@ -85,6 +85,7 @@ const RegisterForm = () => {
         <div className={styles.passwordInput}>
           <span>Password:</span>
           <input
+          type='password'
             className={styles.paddingInput}
             value={userInput.upassword}
             onChange={(e) =>

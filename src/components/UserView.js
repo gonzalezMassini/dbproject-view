@@ -7,7 +7,7 @@ import RoomManagement from './RoomManagement/RoomManagement';
 import UserStatistics from './UserStatistics';
 
 
-function UserView(){
+function UserView(props){
 
     const renderUserStatistics=()=>{
         return(
@@ -35,11 +35,18 @@ function UserView(){
     })
 
 
+    const handleActivePane=()=>{
+        const activePane = localStorage.getItem('activePane')
+        localStorage.removeItem('activePane')
+        return activePane
+    }
+
     return(
         <>
-            <Tab panes={panes}/>
+            <Tab panes={panes} defaultActiveIndex={localStorage.getItem('activePane') ? handleActivePane():0}/>
         </>
     )
+    
 
 }
 export default UserView;

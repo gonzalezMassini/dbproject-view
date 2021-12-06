@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 const CreateMeeting = () =>{
 
 	const [valueStart, onChangeStart] = useState(new Date());
-	const [valueEnd, onChangeEnd] = useState(new Date())
+	const [valueEnd, onChangeEnd] = useState()
 
 	const [meetingInfo, setMeetingInfo] = useState({
 													"mtype":"",

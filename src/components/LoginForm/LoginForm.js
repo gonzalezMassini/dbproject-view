@@ -62,6 +62,7 @@ return(
                   setLoginInput({ ...loginInput, upassword: e.target.value })
                 }
                 placeholder='password'
+                type="password"
                 />
             </div>
             <button className={styles.button}>Loing</button>

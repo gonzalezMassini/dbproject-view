@@ -22,6 +22,10 @@ button{
  display: flex;
  flex-direction: column;
  align-items: center;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+ padding: 1em;
+ margin-top: 2em;
 }
 .edit{
  border-radius: 10px;
@@ -32,4 +36,40 @@ button{
  display: flex;
  flex-direction: column;
  align-items: center;
+}
+button:hover{
+ cursor: pointer;
+}
+
+
+.form{
+ margin-top: 2em;
+ border-radius: 10px;
+ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+ padding: 1em;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+.input{
+ padding: 1em;
+}
+
+span{
+ margin-right: 1em;
+ font-weight: bold;
+}
+
+.paddingInput{
+ border-radius: 10px;
+ padding: 0.5em;
+ box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+}
+.button{
+ padding: 0.25em;
+}
+.t{
+ padding: 1em;
+ display: flex;
+ width: max-content;
 }

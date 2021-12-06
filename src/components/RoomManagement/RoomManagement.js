@@ -5,13 +5,15 @@ import DateTimePicker from 'react-datetime-picker';
 import moment from "moment";
 import { readRoomOccupance } from "../../api";
 import {Calendar, momentLocalizer } from 'react-big-calendar';
-import { Container } from "semantic-ui-react";
+import { Container, Dropdown } from "semantic-ui-react";
+import { useNavigate } from "react-router";
+// import { useNavigate } from "react-router-dom";
 
 
-const RoomManagement =()=>{
-    const [roomInfoInput, setRoomInfoInput] = useState({"rcapacity":"0", "rtype":"classroom","rnumber":"","rbuilding":""})
+const RoomManagement =(props)=>{
+    const [roomInfoInput, setRoomInfoInput] = useState({"rcapacity":"0", "rtype":"","rnumber":"","rbuilding":""})
     const [valueStart, onChangeStart] = useState(new Date());
-	const [valueEnd, onChangeEnd] = useState(new Date())
+	const [valueEnd, onChangeEnd] = useState()
     const [rooms, setRooms] = useState([])
     const [isEdit, setIsEdit] = useState(false)
     const [editInput, setEditInput] = useState('0')
@@ -28,7 +30,25 @@ const RoomManagement =()=>{
         const roomsList = roomsResponse.rooms
         setRooms(roomsList)
     }
+    const roleOptions = [{
+		key: 1,
+		text: "Classroom",
+		value: 'classroom'
+	},
+  {
+    key: 2,
+		text: "Lab",
+		value: "lab"
+	},
+    {
+        key: 3,
+            text: "Study space",
+            value: "study space"
+        },
+]
 
+    // const navigate = props.navigate()
+    const navigate = useNavigate()
     const handleRoomCreateSubmit=async(e)=>{
         e.preventDefault()
         if(roomInfoInput.rcapacity && roomInfoInput.rtype && roomInfoInput.rnumber && roomInfoInput.rbuilding){
@@ -40,7 +60,10 @@ const RoomManagement =()=>{
             }
             await createRoom(bodySend)
             setRoomInfoInput({"rcapacity":"0", "rtype":"","rnumber":"","rbuilding":""})
+            localStorage.setItem('activePane', 1)
             window.location.reload(true)
+            navigate('/UserView')
+            // props.history.push('/UserView')
         }
     }
 
@@ -105,7 +128,7 @@ const RoomManagement =()=>{
             <div className={styles.container}>
                 <form onSubmit={(e) => handleRoomCreateSubmit(e)} className={styles.form}>
                 <div className={styles.login}>Create Room</div>
-                <div className={styles.rnumberInput}>
+                <div className={styles.input}>
                     <span>Room Number:</span>
                     <input className={styles.paddingInput}
                         placeholder='room number'
@@ -115,7 +138,7 @@ const RoomManagement =()=>{
                         value={roomInfoInput.rnumber}
                         />
                 </div>
-                <div className={styles.passwordInput}>
+                <div className={styles.input}>
                     <span>Room Building:</span>
                     <input className={styles.paddingInput}
                         value={roomInfoInput.rbuilding}
@@ -125,7 +148,7 @@ const RoomManagement =()=>{
                         placeholder='room building'
                         />
                 </div>
-                <div className={styles.passwordInput}>
+                <div className={styles.input}>
                     <span>Room Capacity:</span>
                     <input min='0' className={styles.paddingInput} type='number'
                         value={roomInfoInput.rcapacity}
@@ -138,9 +161,15 @@ const RoomManagement =()=>{
                         placeholder='room capacity'
                     />
                 </div>
-                <div className={styles.passwordInput}>
+                <div className={styles.t}>
                     <span>Room Type:</span>
-                    List of room types
+                        <Dropdown
+                            placeholder='select role'
+                            fluid
+                            selection
+                            options={roleOptions}
+                            onChange={(e,{value})=> {setRoomInfoInput({...roomInfoInput, rtype: value});}}
+                            />
                 </div>
                 <button className={styles.button}>Create Room</button>
                 </form>
@@ -199,6 +228,7 @@ const RoomManagement =()=>{
                                 <p>room number: {room.rnumber}</p>
                                 <p>room building: {room.rbuilding}</p>
                                 <p>room capacity: {room.rcapacity}</p>
+                                <p>room type: {room.rtype}</p>
                                 <button onClick={()=> {setIsEdit(true); localStorage.setItem('rid',room.rid)}}>edit room</button>
                                 <button onClick={(e)=>{e.preventDefault(); localStorage.setItem('rid', room.rid); setScheduleRoom(true)}}>make room unavailable</button>
                                 <button onClick={()=>{getRoomOccupance(room.rid); setShowRoomSchedule(false)}}>room schedule</button>

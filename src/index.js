@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {Route, BrowserRouter, Routes, useNavigate} from 'react-router-dom';
 import HomePage from "./components/HomePage.js";
 import 'semantic-ui-css/semantic.min.css'
 import UserView from "./components/UserView.js";
@@ -16,7 +16,7 @@ const App =()=>{
     
     return(
         <BrowserRouter>
-        {sessionStorage.getItem('uid')? <p>Welcome, {sessionStorage.getItem('uid')}</p>:null}
+        {/* {sessionStorage.getItem('uid')? <p>Welcome, {sessionStorage.getItem('uid')}</p>:null} */}
          <Default/>
             <Routes>
                 <Route exact path="/" element={ <LandingPage/>}/>
