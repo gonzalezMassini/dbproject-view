@@ -15,8 +15,16 @@ import axios from "axios"
 //   })
 
 // const localhost = 'http://127.0.0.1:5000/gelatok'
-const localhost = false
+const localhost = true
 const url = localhost ? 'http://127.0.0.1:5000/gelatok' : 'https://bdproject-restapi.herokuapp.com/gelatok'
+
+
+export const userOccupances = async ()=>{
+    const userOccupancesResponse = await axios.get(url + `/user_occupances`,
+        { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true" } })
+    const data = userOccupancesResponse.data
+    return data
+}
 
 // read meetings created by a user
 export const readMeetingsByUser = async (uid) => {

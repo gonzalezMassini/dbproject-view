@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styles from "../CreateMeeting/CreateMeeting.module.css"
-import {createMeeting, readUsers, findAvailableRoom} from "../../api/index.js"
+import {createMeeting, readUsers, findAvailableRoom,readUserOccupance,userOccupances} from "../../api/index.js"
 import { Dropdown } from 'semantic-ui-react'
 import DateTimePicker from 'react-datetime-picker';
 import moment from "moment";
 import { useNavigate } from 'react-router-dom'
+import {Calendar, momentLocalizer } from 'react-big-calendar';
+import { Container } from "semantic-ui-react";
+
 
 
 const CreateMeeting = () =>{
 
 	const [valueStart, onChangeStart] = useState(new Date());
 	const [valueEnd, onChangeEnd] = useState()
+	const [dates, setDates] = useState([]);
+    const localizer = momentLocalizer(moment)
 
 	const [meetingInfo, setMeetingInfo] = useState({
 													"mtype":"",
@@ -67,8 +72,36 @@ const CreateMeeting = () =>{
 		setAvailableRooms(roomsList)
 
 	}
-	
+
+
+	const [allDates, setAllDates]=useState([])
+	const getUserOccupances=async()=>{
+		const response = await userOccupances()
+		// console.log(response);
+		const occupances = response.occupances ? response.occupances:[] 
+		const intoDates = occupances.map(element=>{
+			return(
+				{
+					'title':element.uname,
+					'uid':element.uid,
+					'start':moment(element.uotimeframe.replace(/[\[\]]/g,'').split(',')[0].slice(0,-6)).toDate(),
+					'end': moment(element.uotimeframe.replace(/[\[\]]/g,'').split(',')[1].slice(0,-6)).toDate()
+				}
+			)
+		})
+		// console.log(intoDates)
+		setAllDates(intoDates)
+	}
+
 	useEffect(()=>{
+		let tempDates = allDates.filter(date => attendees.includes(date.uid))
+		console.log(tempDates)
+		setDates(tempDates)
+	},[attendees])
+
+
+	useEffect(()=>{
+		getUserOccupances()
 		getUsers()
 		if((valueStart && valueEnd)&&(valueStart<valueEnd)){
 			getRoomAtTimeframe()
@@ -77,7 +110,43 @@ const CreateMeeting = () =>{
 		}
 	},[valueStart, valueEnd])
 
+	const handleSelect = ({ start, end }) => {        
+		const title = window.prompt('New Event name')
+		if (title){
+						let time = "["+moment(start).format('MM-DD-YYYY HH:mm')+", "+moment(end).format('MM-DD-YYYY HH:mm')+"]"
+		}
+}
+
+	// const [userOccupances, setUserOccupances] = useState([])
+	// let userOccupancesList = []
+	const getUserOccupance=async(id)=>{
+		const response = await readUserOccupance(id) 
+		let userOccupancesList = response.map(obj => obj.uotimeframe)
+		console.log(userOccupancesList)
+		
+		
+		let occupancesIntoDates = userOccupancesList.map(element =>{
+			return(
+				{
+					'startTime':element.replace(/[\[\]]/g,'').split(',')[0].slice(0,-6),
+					'endTime': element.replace(/[\[\]]/g,'').split(',')[1].slice(0,-6)
+				}
+			)
+		})
+		// console.log(occupancesIntoDates)
+		// let tempOcc2Str = localStorage.getItem('userOccupances') ? localStorage.getItem('userOccupances')+JSON.stringify(occupancesIntoDates):JSON.stringify(occupancesIntoDates)
+
+		// localStorage.setItem('userOccupances', tempOcc2Str)
+
+		// console.log(localStorage.getItem('userOccupances'),localStorage.getItem('userOccupances').length )
+		// console.log(occupancesIntoDates)
+		// setDates(occupancesIntoDates)
+
+	}
+
     return(
+					<div className={styles.wrapper}>
+
 	<div className={styles.container} >
 		<form onSubmit={(e)=>{handleSubmit(e)}}>
 		<button>submit</button>
@@ -98,7 +167,7 @@ const CreateMeeting = () =>{
 					minutePlaceholder='mm'
 					returnValue='start'
 					maxDate={valueEnd}
-				/>
+					/>
 				<p>end time</p>
 				<DateTimePicker
 					onChange={onChangeEnd}
@@ -110,7 +179,7 @@ const CreateMeeting = () =>{
 					minutePlaceholder='mm'
 					returnValue='end'
 					minDate={valueStart}
-				/>
+					/>
 			</div>
 			<div>
 				<label>room:</label>
@@ -120,7 +189,7 @@ const CreateMeeting = () =>{
 					selection
 					options={roomOptions}
 					onChange={(e,{value})=> {setMeetingInfo({...meetingInfo, rid: value});}}
-				/>
+					/>
 			</div>
 			<div>
 				<label>attendees:</label>
@@ -130,12 +199,27 @@ const CreateMeeting = () =>{
 					multiple
 					selection
 					options={userOptions.filter(user => user.value !== parseInt(sessionStorage.getItem('uid')))}
-					onChange={(e,{value})=> {setAttendees(value);}}
-				/>
+				onChange={(e,{value})=> {setAttendees(value);}}
+					/>
 			</div>
-			
+			{/* {console.log(attendees)} */}
 		</form>
 	</div>
+	<Container style={{ height: 400, width:600 }}>
+					<h1>Time occupied for attendees</h1>
+		<Calendar
+        selectable
+        localizer={localizer}
+        startAccessor="start"
+        events={dates}
+        endAccessor="end"
+        views={["month", "day"]}
+        defaultDate={Date.now()}
+        onSelectSlot={handleSelect}
+								>
+    </Calendar>
+									</Container>
+			</div>
     )
 }
 

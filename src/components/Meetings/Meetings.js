@@ -17,7 +17,7 @@ const Meetings =()=>{
     const getMeetingsByUser=async()=>{
         const uid = parseInt(sessionStorage.getItem('uid'))
         const meetingsByUserResponse = await readMeetingsByUser(uid)
-        console.log(meetingsByUserResponse.attendees)
+        // console.log(meetingsByUserResponse.attendees)
 
         let attendeesOptions = meetingsByUserResponse.attendees.map((attendee)=>({
             key : attendee.uid*attendee.mid,
