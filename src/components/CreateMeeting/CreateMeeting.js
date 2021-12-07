@@ -111,10 +111,12 @@ const CreateMeeting = () =>{
 	},[valueStart, valueEnd])
 
 	const handleSelect = ({ start, end }) => {        
-		const title = window.prompt('New Event name')
-		if (title){
-						let time = "["+moment(start).format('MM-DD-YYYY HH:mm')+", "+moment(end).format('MM-DD-YYYY HH:mm')+"]"
-		}
+		// const title = window.prompt('New Event name')
+		
+		onChangeStart(start)
+		onChangeEnd(end)
+
+		
 }
 
 	// const [userOccupances, setUserOccupances] = useState([])
