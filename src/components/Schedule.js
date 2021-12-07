@@ -129,7 +129,5 @@ function Schedule(){
                 </Modal.Actions>
             </Modal>
     </Container>
-
-
 }
 export default Schedule;
