@@ -52,6 +52,13 @@ export const updateRoom = async (rid, bodySend) => {
     return data
 }
 
+export const deleteOccupance = async(uid, timeframe)=>{
+    const deleteOcc = await axios.delete(url+`/delete_occupance/${uid}/${timeframe}`,
+    { headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "true" } })
+    const data = deleteOcc.data
+    return data
+}
+
 
 export const updateUser = async (uid, bodySend) => {
     const updateUserResponse = await axios.put(url + `/update_user/${uid}`,

@@ -111,40 +111,10 @@ const CreateMeeting = () =>{
 	},[valueStart, valueEnd])
 
 	const handleSelect = ({ start, end }) => {        
-		// const title = window.prompt('New Event name')
-		
 		onChangeStart(start)
 		onChangeEnd(end)
-
-		
 }
 
-	// const [userOccupances, setUserOccupances] = useState([])
-	// let userOccupancesList = []
-	const getUserOccupance=async(id)=>{
-		const response = await readUserOccupance(id) 
-		let userOccupancesList = response.map(obj => obj.uotimeframe)
-		console.log(userOccupancesList)
-		
-		
-		let occupancesIntoDates = userOccupancesList.map(element =>{
-			return(
-				{
-					'startTime':element.replace(/[\[\]]/g,'').split(',')[0].slice(0,-6),
-					'endTime': element.replace(/[\[\]]/g,'').split(',')[1].slice(0,-6)
-				}
-			)
-		})
-		// console.log(occupancesIntoDates)
-		// let tempOcc2Str = localStorage.getItem('userOccupances') ? localStorage.getItem('userOccupances')+JSON.stringify(occupancesIntoDates):JSON.stringify(occupancesIntoDates)
-
-		// localStorage.setItem('userOccupances', tempOcc2Str)
-
-		// console.log(localStorage.getItem('userOccupances'),localStorage.getItem('userOccupances').length )
-		// console.log(occupancesIntoDates)
-		// setDates(occupancesIntoDates)
-
-	}
 
     return(
 					<div className={styles.wrapper}>

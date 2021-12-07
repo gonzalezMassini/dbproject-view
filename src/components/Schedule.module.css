@@ -1,0 +1,10 @@
+.icon:hover{
+ cursor: pointer;
+}
+.icon{
+ font-size: 2rem;
+ margin-left: 1em;
+}
+.desc{
+ font-size: 2em;
+}

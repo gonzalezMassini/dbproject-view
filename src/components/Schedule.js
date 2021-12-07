@@ -2,15 +2,19 @@ import React, { useEffect, useState} from 'react';
 import {Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import {Container} from "semantic-ui-react";
-import {readUserOccupance, readMeetingTimeFrames, createUserOccupance} from '../api/index.js'
+import {Container, Modal, Button} from "semantic-ui-react";
+import {readUserOccupance, readMeetingTimeFrames, createUserOccupance, deleteOccupance} from '../api/index.js'
 import { useNavigate } from 'react-router-dom'
+import styles from './Schedule.module.css'
+import {BsTrashFill} from 'react-icons/bs'
 
 
 
 function Schedule(){
     const [dates, setDates] = useState([]);
     const localizer = momentLocalizer(moment)
+    const [open, setOpen] = useState(false);
+
 
 
     const getUserOccupance=async()=>{
@@ -18,6 +22,7 @@ function Schedule(){
         
         const userOccupanceResponse = await readUserOccupance(sessionStorage.getItem('uid'))
         const userOccupanceList = userOccupanceResponse
+        // console.log(userOccupanceList)
         const timeFrameList = []
 
         let mtimeframeListObj = meetingsTimeResponse ? meetingsTimeResponse.meetings:[]
@@ -76,6 +81,22 @@ function Schedule(){
         const backgroundColor = event.colorCode;
         return { style: { backgroundColor } }
     }
+
+    
+
+    const [timeframe, setTimeframe] = useState('')
+    const handleSelectEvent=event=>{
+        setOpen(true)
+        console.log(event)
+        setTimeframe("["+moment(event.start).format('MM-DD-YYYY HH:mm')+", "+moment(event.end).format('MM-DD-YYYY HH:mm')+"]")
+    }
+
+    
+    const handleDeleteEvent=async()=>{
+        const uid = parseInt(sessionStorage.getItem('uid'))
+        await deleteOccupance(uid, timeframe)
+        window.location.reload(true)
+    }
     
     return <Container style={{ height: 800 }}><Calendar
         selectable
@@ -87,9 +108,26 @@ function Schedule(){
         defaultDate={Date.now()}
         onSelectSlot={handleSelect}
         eventPropGetter={eventPropGetter}
+        onSelectEvent={event => event.colorCode === 'red' ? handleSelectEvent(event):null}
     >
-
     </Calendar>
+    <Modal
+                centered={false}
+                open={open}
+                onClose={() => setOpen(false)}
+                onOpen={() => setOpen(true)}
+            >
+                <Modal.Header>Delete event</Modal.Header>
+                <Modal.Content>
+                    <Modal.Description className={styles.desc}>
+                        Click trash can to delete event 
+                        <span onClick={()=>handleDeleteEvent()} className={styles.icon}><BsTrashFill/></span>
+                    </Modal.Description>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={() => setOpen(false)}>OK</Button>
+                </Modal.Actions>
+            </Modal>
     </Container>
 
 
