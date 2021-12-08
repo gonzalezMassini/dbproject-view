@@ -65,7 +65,7 @@ return(
                 type="password"
                 />
             </div>
-            <button className={styles.button}>Loing</button>
+            <button className={styles.button}>Login</button>
             {succesLog ? <p onClick={()=>setSuccesLog(false)} >succesfully logged in</p>:null}
             {wrongCredentials ? <p onClick={()=>setWrongCredentials(false)} >wrong credentials</p>:null}
         </form>
